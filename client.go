@@ -1,3 +1,22 @@
+/*
+Package kbhttp provides a simple HTTP client for testing with Katabole.
+
+For a canonical usage example see https://github.com/katabole/kbexample/tree/main/actions
+
+Example:
+
+	client := kbhttp.NewClient(kbhttp.ClientConfig{BaseURL: "http://localhost:3000/"})
+
+	var user models.User
+	if err := f.Client.GetJSON("/users/12345", &user); err != nil {
+		t.Fatalf("failed to get user: %v", err)
+	}
+
+	user.Name = "Tom"
+	if err := f.Client.PutJSON("/users/12345", user, nil); err != nil {
+		t.Fatalf("failed to update user: %v", err)
+	}
+*/
 package kbhttp
 
 import (
