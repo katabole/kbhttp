@@ -34,10 +34,10 @@ func TestClientDo(t *testing.T) {
 	handler, client, cleanup := setup(t)
 	defer cleanup()
 
-	handler.On("HandleWithHeaders", "GET", "/users/1", mock.Anything, mock.Anything).Return(httpmock.Response{
+	handler.On("HandleWithHeaders", "GET", "/users/2", mock.Anything, mock.Anything).Return(httpmock.Response{
 		Body: []byte(`{"name": "joebob"}`),
 	})
-	req, err := http.NewRequest("GET", "/users/1", nil)
+	req, err := http.NewRequest("GET", "/users/2", nil)
 	require.NoError(t, err)
 	resp, err := client.Do(req)
 	require.NoError(t, err)
