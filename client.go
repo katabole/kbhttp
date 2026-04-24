@@ -89,6 +89,7 @@ func (c *Client) DoJSON(req *http.Request, target any) error {
 	}
 
 	if target == nil {
+		_, _ = io.Copy(io.Discard, resp.Body)
 		return nil
 	}
 
