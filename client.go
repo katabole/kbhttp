@@ -61,6 +61,10 @@ func (c *Client) Do(req *http.Request) (*http.Response, error) {
 
 // JSON
 //
+// DoJSON, GetJSON, PostJSON, PutJSON, and DeleteJSON all set the appropriate
+// JSON headers and decode the response body into the target. Pass nil as
+// target to skip decoding — useful for endpoints that return no body (e.g.
+// 204 No Content).
 
 func (c *Client) DoJSON(req *http.Request, target any) error {
 	req.Header.Set("Content-Type", "application/json")
@@ -82,6 +86,10 @@ func (c *Client) DoJSON(req *http.Request, target any) error {
 			return fmt.Errorf("got %d code and %d bytes of binary data", resp.StatusCode, len(body))
 		}
 		return fmt.Errorf("got %d code and response: %s", resp.StatusCode, string(body))
+	}
+
+	if target == nil {
+		return nil
 	}
 
 	if err := json.NewDecoder(resp.Body).Decode(&target); err != nil {
