@@ -71,6 +71,19 @@ func TestClientDoJSON(t *testing.T) {
 	assert.Equal(t, "joebob", user.Name)
 }
 
+func TestClientDoJSONNilTarget204(t *testing.T) {
+	handler, client, cleanup := setup(t)
+	defer cleanup()
+
+	handler.On("HandleWithHeaders", "DELETE", "/users/1", jsonHeaderMatcher, mock.Anything).Return(httpmock.Response{
+		Status: http.StatusNoContent,
+	})
+
+	req, err := http.NewRequest("DELETE", "/users/1", nil)
+	require.NoError(t, err)
+	require.NoError(t, client.DoJSON(req, nil))
+}
+
 type TestUser struct {
 	ID   int    `json:"id,omitempty"`
 	Name string `json:"name"`
