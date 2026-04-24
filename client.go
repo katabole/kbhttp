@@ -93,7 +93,7 @@ func (c *Client) DoJSON(req *http.Request, target any) error {
 		return nil
 	}
 
-	if err := json.NewDecoder(resp.Body).Decode(&target); err != nil {
+	if err := json.NewDecoder(resp.Body).Decode(target); err != nil {
 		return fmt.Errorf("got %d code and failed to decode response body: %w", resp.StatusCode, err)
 	}
 	return nil
